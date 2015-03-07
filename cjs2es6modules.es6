@@ -1,26 +1,26 @@
 'use strict';
 
-var acorn = require('acorn');
-var walk = require('acorn/util/walk');
-var walkall = require('walkall');
+const acorn = require('acorn');
+const walk = require('acorn/util/walk');
+const walkall = require('walkall');
 
-var escodegen = require('escodegen');
-var fs = require('fs');
+const escodegen = require('escodegen');
+const fs = require('fs');
 
-var src = fs.readFileSync(__dirname + '/demo/require-test.js');
+const src = fs.readFileSync(`${__dirname}/demo/require-test.js`);
 
-var parseOpts = {ecmaVersion: 6};
-var ast = acorn.parse(src, parseOpts);
+const parseOpts = {ecmaVersion: 6};
+const ast = acorn.parse(src, parseOpts);
 
-var isRequire = function(node) {
-  var c = node.callee;
-  return c
-    && node.type === 'CallExpression'
-    && c.type === 'Identifier'
-    && c.name === 'require';
+const isRequire = (node) => {
+  const c = node.callee;
+  return c &&
+    node.type === 'CallExpression' &&
+    c.type === 'Identifier' &&
+    c.name === 'require';
 };
 
-walk.simple(ast, walkall.makeVisitors(function(node) {
+walk.simple(ast, walkall.makeVisitors((node) => {
   //console.log('Found node type',node.type);
   if (isRequire(node)) {
     if (node.arguments.length) {

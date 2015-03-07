@@ -2,7 +2,7 @@
   "name": "cjs2es6modules",
   "description": "",
   "version": "0.0.1",
-  "main": "cjs2es6modules.js",
+  "main": "cjs2es6modules.es6",
   "repository": {
     "type": "git",
     "url": "git@github.com:deathcap/cjs2es6modules.git"
@@ -16,6 +16,9 @@
     "escodegen": "^1.6.1",
     "serve-static": "^1.9.1",
     "walkall": "0.0.3"
+  },
+  "scripts": {
+    "start": "babel cjs2es6modules.es6 | node"
   },
   "license": "MIT",
   "devDependencies": {
