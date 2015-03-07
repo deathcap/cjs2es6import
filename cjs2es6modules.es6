@@ -28,6 +28,8 @@ walk.simple(ast, walkall.makeVisitors((anode) => {
     return;
   }
 
+  let newNodes = [];
+
   anode.declarations.forEach((node) => {
     if (node.id.type !== 'Identifier') {
       //console.log('Ignoring non-identifier variable identifier: ',node);
@@ -47,8 +49,8 @@ walk.simple(ast, walkall.makeVisitors((anode) => {
           // TODO: replace entire declaration (anode not node)
           delete node.id;
           delete node.init;
-          node.type = 'ImportDeclaration';
-          node.source = {type: 'Literal', value: moduleName};
+          node.type =  'ImportDeclaration';
+          node.source = {type: 'Literal', value: moduleName}
 
           node.specifiers = [
             {
@@ -58,13 +60,23 @@ walk.simple(ast, walkall.makeVisitors((anode) => {
             }
           ];
 
+          newNodes.push(node);
+
           //console.log('New node=',node);
         } else {
           //console.log('Ignored non-string require:',node.init.arguments[0]);
+          // TODO: stop eating
         }
       }
     }
   });
+
+  anode.type = 'Program';
+  anode.body = newNodes;
+  delete anode.kind;
+  delete anode.declarations;
+  //console.log('anode=',anode);
+
 }), walkall.traversers);
 
 console.log(escodegen.generate(ast));
