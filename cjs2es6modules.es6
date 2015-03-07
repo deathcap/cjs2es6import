@@ -46,7 +46,6 @@ walk.simple(ast, walkall.makeVisitors((anode) => {
           //console.log('Found require:', varName, moduleName);
           //console.log('Old node=',node);
 
-          // TODO: replace entire declaration (anode not node)
           delete node.id;
           delete node.init;
           node.type =  'ImportDeclaration';
@@ -65,7 +64,8 @@ walk.simple(ast, walkall.makeVisitors((anode) => {
           //console.log('New node=',node);
         } else {
           //console.log('Ignored non-string require:',node.init.arguments[0]);
-          // TODO: stop eating
+          // Pass it through unchanged, not much we can do TODO: support subset of expression evaluations like browserify
+          newNodes.push(node);
         }
       }
     }
