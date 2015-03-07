@@ -43,7 +43,7 @@ walk.simple(ast, walkall.makeVisitors((node) => {
           delete node.id;
           delete node.init;
           node.type = 'ImportDeclaration';
-          node.source = {type: 'Identifier', name: moduleName};
+          node.source = {type: 'Literal', value: moduleName};
 
           node.specifiers = [
             {
