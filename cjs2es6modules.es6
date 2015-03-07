@@ -21,13 +21,27 @@ const isRequire = (node) => {
 };
 
 walk.simple(ast, walkall.makeVisitors((node) => {
-  //console.log('Found node type',node.type);
-  if (isRequire(node)) {
-    if (node.arguments.length) {
-      if (node.arguments[0].type === 'Literal') {
-        console.log('Found require:',node.arguments[0].value);
-      } else {
-        console.log('Ignored non-string require:',node.arguments[0]);
+  console.log('Found node type',node.type,node,escodegen.generate(node));
+
+  if (node.type === 'VariableDeclarator') {
+    if (node.id.type !== 'Identifier') {
+      console.log('Ignoring non-identifier variable identifier: ',node);
+      return;
+    }
+
+    var varName = node.id.name;
+
+    if (isRequire(node.init)) {
+      if (node.init.arguments.length) {
+        if (node.init.arguments[0].type === 'Literal') {
+          var moduleName = node.init.arguments[0].value;
+
+          console.log('Found require:', moduleName);
+
+          console.log('REQ',varName,moduleName);
+        } else {
+          console.log('Ignored non-string require:',node.init.arguments[0]);
+        }
       }
     }
   }
