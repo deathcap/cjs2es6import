@@ -1,11 +1,11 @@
 {
-  "name": "cjs2es6modules",
+  "name": "cjs2es6import",
   "description": "",
   "version": "0.0.1",
-  "main": "cjs2es6modules.js",
+  "main": "cjs2es6import.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:deathcap/cjs2es6modules.git"
+    "url": "git@github.com:deathcap/cjs2es6import.git"
   },
   "keywords": [],
   "dependencies": {
@@ -17,7 +17,7 @@
     "walkall": "0.0.3"
   },
   "scripts": {
-    "start": "node cjs2es6modules.js"
+    "start": "node cjs2es6import.js"
   },
   "license": "MIT",
   "devDependencies": {
