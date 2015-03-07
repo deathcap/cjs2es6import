@@ -33,5 +33,5 @@ walk.simple(ast, walkall.makeVisitors(function(node) {
   }
 }), walkall.traversers);
 
-//console.log(escodegen.generate(requires.nodes[0]));
+console.log(escodegen.generate(ast));
 
