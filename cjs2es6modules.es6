@@ -20,11 +20,15 @@ const isRequire = (node) => {
     c.name === 'require';
 };
 
-walk.simple(ast, walkall.makeVisitors((node) => {
-  //console.log('Found node type',node.type,node);
+walk.simple(ast, walkall.makeVisitors((anode) => {
+  //console.log('Found node type',anode.type,anode);
   //console.log(escodegen.generate(node));
 
-  if (node.type === 'VariableDeclarator') {
+  if (anode.type !== 'VariableDeclaration') {
+    return;
+  }
+
+  anode.declarations.forEach((node) => {
     if (node.id.type !== 'Identifier') {
       //console.log('Ignoring non-identifier variable identifier: ',node);
       return;
@@ -40,6 +44,7 @@ walk.simple(ast, walkall.makeVisitors((node) => {
           //console.log('Found require:', varName, moduleName);
           //console.log('Old node=',node);
 
+          // TODO: replace entire declaration (anode not node)
           delete node.id;
           delete node.init;
           node.type = 'ImportDeclaration';
@@ -59,7 +64,7 @@ walk.simple(ast, walkall.makeVisitors((node) => {
         }
       }
     }
-  }
+  });
 }), walkall.traversers);
 
 console.log(escodegen.generate(ast));
