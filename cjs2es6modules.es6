@@ -21,11 +21,12 @@ const isRequire = (node) => {
 };
 
 walk.simple(ast, walkall.makeVisitors((node) => {
-  console.log('Found node type',node.type,node,escodegen.generate(node));
+  //console.log('Found node type',node.type,node);
+  //console.log(escodegen.generate(node));
 
   if (node.type === 'VariableDeclarator') {
     if (node.id.type !== 'Identifier') {
-      console.log('Ignoring non-identifier variable identifier: ',node);
+      //console.log('Ignoring non-identifier variable identifier: ',node);
       return;
     }
 
@@ -36,11 +37,25 @@ walk.simple(ast, walkall.makeVisitors((node) => {
         if (node.init.arguments[0].type === 'Literal') {
           var moduleName = node.init.arguments[0].value;
 
-          console.log('Found require:', moduleName);
+          //console.log('Found require:', varName, moduleName);
+          //console.log('Old node=',node);
 
-          console.log('REQ',varName,moduleName);
+          delete node.id;
+          delete node.init;
+          node.type = 'ImportDeclaration';
+          node.source = {type: 'Identifier', name: moduleName};
+
+          node.specifiers = [
+            {
+              type: 'ImportSpecifier',
+              name: null, //{type: 'Identifier', name: varName}, // no 'as', same name as id
+              id: {type: 'Identifier', name: varName}
+            }
+          ];
+
+          //console.log('New node=',node);
         } else {
-          console.log('Ignored non-string require:',node.init.arguments[0]);
+          //console.log('Ignored non-string require:',node.init.arguments[0]);
         }
       }
     }
