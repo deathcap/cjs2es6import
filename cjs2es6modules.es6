@@ -1,26 +1,26 @@
 'use strict';
 
-const acorn = require('acorn');
-const walk = require('acorn/util/walk');
-const walkall = require('walkall');
+var acorn = require('acorn');
+var walk = require('acorn/util/walk');
+var walkall = require('walkall');
 
-const escodegen = require('escodegen');
-const fs = require('fs');
+var escodegen = require('escodegen');
+var fs = require('fs');
 
-const src = fs.readFileSync(`${__dirname}/demo/require-test.js`);
+var src = fs.readFileSync(__dirname + '/demo/require-test.js');
 
-const parseOpts = {ecmaVersion: 6};
-const ast = acorn.parse(src, parseOpts);
+var parseOpts = {ecmaVersion: 6};
+var ast = acorn.parse(src, parseOpts);
 
-const isRequire = (node) => {
-  const c = node.callee;
+var isRequire = function(node) {
+  var c = node.callee;
   return c &&
     node.type === 'CallExpression' &&
     c.type === 'Identifier' &&
     c.name === 'require';
 };
 
-walk.simple(ast, walkall.makeVisitors((anode) => {
+walk.simple(ast, walkall.makeVisitors(function(anode) {
   //console.log('Found node type',anode.type,anode);
   //console.log(escodegen.generate(node));
 
@@ -28,9 +28,9 @@ walk.simple(ast, walkall.makeVisitors((anode) => {
     return;
   }
 
-  let newNodes = [];
+  var newNodes = [];
 
-  anode.declarations.forEach((node) => {
+  anode.declarations.forEach(function(node) {
     if (node.id.type !== 'Identifier') {
       //console.log('Ignoring non-identifier variable identifier: ',node);
       return;
