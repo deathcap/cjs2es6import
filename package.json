@@ -8,7 +8,9 @@
     "url": "git@github.com:deathcap/cjs2es6modules.git"
   },
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "detective": "^4.0.0"
+  },
   "license": "MIT",
   "devDependencies": {
     "es6-module-loader": "^0.15.0",
