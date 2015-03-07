@@ -14,7 +14,7 @@
     "walkall": "0.0.3"
   },
   "scripts": {
-    "start": "node cjs2es6import.js"
+    "start": "node demo/demo.js"
   },
   "license": "MIT",
   "devDependencies": {}
