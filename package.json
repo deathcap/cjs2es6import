@@ -1,7 +1,7 @@
 {
   "name": "cjs2es6import",
   "description": "convert CommonJS require expressions to ES6 module import statements",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "cjs2es6import.js",
   "repository": {
     "type": "git",
