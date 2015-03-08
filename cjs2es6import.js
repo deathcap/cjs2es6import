@@ -51,8 +51,9 @@ module.exports = function(src) {
             node.specifiers = [
               {
                 type: 'ImportSpecifier',
-                name: null, //{type: 'Identifier', name: varName}, // no 'as', same name as id
-                id: {type: 'Identifier', name: varName}
+                //name: null, //{type: 'Identifier', name: varName}, // no 'as', same name as id
+                name: {type: 'Identifier', name: varName},
+                id: {type: 'Identifier', name: 'default'} // import { default as foo } .. TODO: just import foo ..
               }
             ];
 
