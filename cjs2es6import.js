@@ -7,7 +7,7 @@ var escodegen = require('escodegen');
 
 module.exports = function(src, opts) {
   opts = opts || {};
-  opts.prefix = opts.prefix || '';
+  opts.encode = opts.encode || function(moduleName) { return moduleName };
   var parseOpts = {ecmaVersion: 6};
   var ast = acorn.parse(src, parseOpts);
 
@@ -48,7 +48,7 @@ module.exports = function(src, opts) {
             delete node.id;
             delete node.init;
             node.type =  'ImportDeclaration';
-            node.source = {type: 'Literal', value: opts.prefix + moduleName}
+            node.source = {type: 'Literal', value: opts.encode(moduleName)}
 
             node.specifiers = [
               {
