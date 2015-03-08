@@ -8,7 +8,7 @@ Example:
     var cjs2es6import = require('cjs2es6import');
 
     var src = "var foo = require('bar');";
-    var newSrc = cjs2es6import(src); // "import { default as foo } from 'bar'"
+    var newSrc = cjs2es6import(src); // "import foo from 'bar';"
 
 More examples in `demo/demo.js` (run `npm start`)
 
