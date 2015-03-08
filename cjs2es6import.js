@@ -5,7 +5,9 @@ var walk = require('acorn/util/walk');
 var walkall = require('walkall');
 var escodegen = require('escodegen');
 
-module.exports = function(src) {
+module.exports = function(src, opts) {
+  opts = opts || {};
+  opts.prefix = opts.prefix || '';
   var parseOpts = {ecmaVersion: 6};
   var ast = acorn.parse(src, parseOpts);
 
@@ -46,7 +48,7 @@ module.exports = function(src) {
             delete node.id;
             delete node.init;
             node.type =  'ImportDeclaration';
-            node.source = {type: 'Literal', value: moduleName}
+            node.source = {type: 'Literal', value: opts.prefix + moduleName}
 
             node.specifiers = [
               {
