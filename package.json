@@ -11,7 +11,7 @@
   "dependencies": {
     "acorn": "^0.12.0",
     "escodegen": "^1.6.1",
-    "walkall": "0.0.3"
+    "walkall": "0.0.5"
   },
   "scripts": {
     "start": "node demo/demo.js"
